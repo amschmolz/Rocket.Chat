@@ -261,7 +261,7 @@ RocketChat.callbacks.add('afterSaveMessage', function(message, room, userId) {
 		}, {
 			fields: {
 				username: 1,
-				statusConnection: 1
+				status: 1
 			}
 		});
 
@@ -271,13 +271,13 @@ RocketChat.callbacks.add('afterSaveMessage', function(message, room, userId) {
 				`@${ user.username }: ${ message.msg }`, 'privateMessage');
 
 		}
-		if ((userOfMention != null) && canBeNotified(userOfMentionId, 'mobile')) {
+		if ((userOfMention != null) && canBeNotified(userOfMentionId, 'desktop')) {
 			const duration = settings.desktopNotificationDurations[userOfMention._id];
 			notifyDesktopUser(userOfMention._id, user, message, room, duration);
 		}
 
-		if ((userOfMention != null) && canBeNotified(userOfMentionId, 'desktop')) {
-			if (Push.enabled === true && userOfMention.statusConnection !== 'online') {
+		if ((userOfMention != null) && canBeNotified(userOfMentionId, 'mobile')) {
+			if (Push.enabled === true && userOfMention.status !== 'online') {
 				RocketChat.PushNotification.send({
 					roomId: message.rid,
 					username: push_username,
