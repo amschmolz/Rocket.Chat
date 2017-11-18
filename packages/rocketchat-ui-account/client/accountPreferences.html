@@ -43,6 +43,12 @@
 								</div>
 							</div>
 							<div class="input-line double-col">
+								<label>{{_ "Auto_Away_Duration"}}</label>
+								<div>
+									<input type="number" name="autoAwayDuration" min="0" value="{{autoAwayDuration}}" placeholder="{{_ "Use_Global_Settings"}} ({{defaultAutoAwayDuration}} {{_ "seconds"}})">
+								</div>
+							</div>
+							<div class="input-line double-col">
 								<label>{{_ "Notification_Duration"}}</label>
 								<div>
 									{{#if desktopNotificationDuration}}

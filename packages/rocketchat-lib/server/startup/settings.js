@@ -438,6 +438,13 @@ RocketChat.settings.addGroup('General', function() {
 			type: 'boolean'
 		});
 	});
+	this.section('User settings', function() {		
+		this.add('Auto_Away_Duration', 300, {
+			type: 'int',
+			'public': true,
+			i18nDescription: 'Auto_Away_Duration_Description'
+		});
+	});
 	this.section('Notifications', function() {
 		this.add('Desktop_Notifications_Duration', 0, {
 			type: 'int',

@@ -251,6 +251,8 @@
   "Author": "Author",
   "Authorization_URL": "Authorization URL",
   "Authorize": "Authorize",
+  "Auto_Away_Duration": "Auto Away Duration (in seconds)",
+  "Auto_Away_Duration_Description": "Default number of seconds for a user to go inactive",
   "auto-translate": "Auto Translate",
   "auto-translate_description": "Permission to use the auto translate tool",
   "Auto_Load_Images": "Auto Load Images",

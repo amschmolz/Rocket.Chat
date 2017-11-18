@@ -14,11 +14,18 @@ if (window.DISABLE_ANIMATION) {
 	toastr.options.extendedTimeOut = 0;
 }
 
+const get = (obj, path) => path.split('.').reduce((acc, k) => (acc || {})[k], obj);
+
 Meteor.startup(function() {
 	TimeSync.loggingEnabled = false;
 
-	UserPresence.awayTime = 300000;
+	Meteor.autorun(() => {
+		const autoAwayDuration = get(Meteor.user(), 'settings.preferences.autoAwayDuration');
+		const defaultAutoAwayDuration = RocketChat.settings.get('Auto_Away_Duration');
+		UserPresence.awayTime = (autoAwayDuration || defaultAutoAwayDuration || 300) * 1000;
+	});
 	UserPresence.start();
+
 	Meteor.subscribe('activeUsers');
 
 	Session.setDefault('AvatarRandom', 0);

@@ -9,6 +9,8 @@ const notificationLabels = {
 	nothing: 'Nothing'
 };
 
+const get = (obj, path) => path.split('.').reduce((acc = {}, k) => acc[k], obj);
+
 Template.accountPreferences.helpers({
 	showMergedChannels() {
 		return ['category', 'unread'].includes(Template.instance().roomsListExhibitionMode.get()) ? '' : 'disabled';
@@ -79,6 +81,12 @@ Template.accountPreferences.helpers({
 	},
 	defaultAudioNotificationValue() {
 		return RocketChat.settings.get('Audio_Notifications_Value');
+	},
+	autoAwayDuration() {
+		return get(Meteor.user(), 'settings.preferences.autoAwayDuration') || '';
+	},
+	defaultAutoAwayDuration() {
+		return RocketChat.settings.get('Auto_Away_Duration') || 300;
 	},
 	desktopNotificationDuration() {
 		const user = Meteor.user();
@@ -154,6 +162,8 @@ Template.accountPreferences.onCreated(function() {
 		data.roomsListExhibitionMode = $('select[name=roomsListExhibitionMode]').val();
 
 		data.autoImageLoad = $('input[name=autoImageLoad]:checked').val();
+		data.autoAwayDuration = parseInt($('input[name=autoAwayDuration]').val()) || '';
+		
 		data.emailNotificationMode = $('select[name=emailNotificationMode]').val();
 		data.highlights = _.compact(_.map($('[name=highlights]').val().split(','), function(e) {
 			return s.trim(e);
@@ -168,6 +178,7 @@ Template.accountPreferences.onCreated(function() {
 			if (results) {
 				toastr.success(t('Preferences_saved'));
 				instance.clearForm();
+
 				if (reload) {
 					setTimeout(function() {
 						Meteor._reload.reload();

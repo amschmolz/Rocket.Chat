@@ -74,6 +74,7 @@ Meteor.methods({
 			}
 
 			preferences.audioNotificationValue = settings.audioNotificationValue - 0;
+			preferences.autoAwayDuration = settings.autoAwayDuration - 0;			
 			preferences.desktopNotificationDuration = settings.desktopNotificationDuration - 0;
 			preferences.viewMode = settings.viewMode || 0;
 			preferences.hideUsernames = settings.hideUsernames === '1';
